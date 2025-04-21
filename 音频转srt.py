@@ -1,6 +1,11 @@
 import whisper
 from pydub import AudioSegment
 import datetime
+import argparse
+import time
+import sys
+import subprocess
+import os
 
 def audio_to_srt(audio_path, model_name="base", output_srt="output.srt"):
     """
@@ -39,7 +44,36 @@ def format_timedelta(td: datetime.timedelta) -> str:
     minutes, seconds = divmod(remainder, 60)
     milliseconds = td.microseconds // 1000
     return f"{hours:02}:{minutes:02}:{seconds:02},{milliseconds:03}"
+def get_wav(video_path,out_wav):
+    # 静默执行命令（不显示任何输出）
+    result =subprocess.run(
+    ["ffmpeg", "-i",video_path,"-vn","-acodec","pcm_s16le","-ar","44100","-ac","2",out_wav],
+    stdout=subprocess.DEVNULL,
+    stderr=subprocess.DEVNULL
+    )
+    if result.returncode==0:
+        print("成功提取到音频文件:"+out_wav)
+    else:
+        print("提取失败")
+        sys.exit()
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='语音识别转字幕工具')
+    parser.add_argument('input', help='输入文件')
+    parser.add_argument('output', help='输出文件')
+    args = parser.parse_args()
+
+    # 记录开始时间
+    start_time = time.time()
+    
+    #提取音频
+    out_wav=str(start_time)+".wav"
+    get_wav(args.input,out_wav)
+
     # 示例：将 output.wav 转换为字幕，使用 base 模型
-    audio_to_srt("input.wav", model_name="base", output_srt="output.srt")
+    print("开始转换音频为srt字幕")
+    audio_to_srt("output.wav", model_name="base", output_srt=args.output)
+    end_time = time.time()
+
+    os.remove(out_wav)
+    print(f"执行时间: {end_time - start_time:.4f} 秒")
