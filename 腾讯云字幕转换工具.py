@@ -150,8 +150,8 @@ def main():
     parser.add_argument('input', help='输入SRT文件路径')
     parser.add_argument('-o', '--output', help='输出文件路径')
     parser.add_argument('--batch', type=int, default=5, help='批量处理行数')
-    secret_id = "AKIDpdWFoDMTP9PdWKzSiojWDnEWikfOxNp7"
-    secret_key = "DD3CE7uXyFParQwQYX5ViknfNvJeu10n"
+    secret_id = ""
+    secret_key = ""
     
     args = parser.parse_args()
     
