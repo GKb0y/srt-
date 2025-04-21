@@ -148,7 +148,7 @@ def process_subtitle(content, translator):
 def main():
     parser = argparse.ArgumentParser(description='腾讯云字幕转换工具')
     parser.add_argument('input', help='输入SRT文件路径')
-    parser.add_argument('-o', '--output', help='输出文件路径')
+    parser.add_argument('output', help='输出文件路径')
     parser.add_argument('--batch', type=int, default=5, help='批量处理行数')
     secret_id = ""
     secret_key = ""
