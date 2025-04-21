@@ -42,4 +42,4 @@ def format_timedelta(td: datetime.timedelta) -> str:
 
 if __name__ == "__main__":
     # 示例：将 output.wav 转换为字幕，使用 base 模型
-    audio_to_srt("output.wav", model_name="base", output_srt="output.srt")
+    audio_to_srt("input.wav", model_name="base", output_srt="output.srt")
