@@ -13,8 +13,8 @@ from tqdm import tqdm
 
 class TencentTranslator:
     def __init__(self, secret_id, secret_key):
-        self.secret_id = secret_id
-        self.secret_key = secret_key
+        self.secret_id = "SecretId"
+        self.secret_key = "SecretKey"
         self.endpoint = "tmt.tencentcloudapi.com"
         self.version = "2018-03-21"
         self.region = "ap-beijing"
